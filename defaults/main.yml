@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 
 # ~/.gitconfig
 
@@ -8,15 +9,24 @@ git_core_editor   : 'gedit'
 git_push_default  : 'simple'
 
 
+=======
+>>>>>>> 6f48135cc58c2635f30086c005bdb895fd16946a
 workspace: /root
 
 # If git_install_from_source is set to false, these two variables define whether
 # to use an additional repo for the package installation, and which git packages
 # will be installed.
+<<<<<<< HEAD
 git_enablerepo: "" # redhat
 git_packages:
   - git
 #  - git-svn
+=======
+git_enablerepo: ""
+git_packages:
+  - git
+  - git-svn
+>>>>>>> 6f48135cc58c2635f30086c005bdb895fd16946a
 
 # If set to TRUE, git will be installed from source, using the version set with
 # the 'git_version' variable instead of using a package.

@@ -12,6 +12,7 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+<<<<<<< HEAD
 ```shell
 workspace: /root
 ```
@@ -29,6 +30,20 @@ This variable, a well as `git_packages`, will be used to install git via a parti
       - git
       - git-svn
 ```
+=======
+    workspace: /root
+
+Where certain files will be downloaded and adjusted prior to git installation, if needed.
+
+    git_enablerepo: ""
+
+This variable, a well as `git_packages`, will be used to install git via a particular `yum` repo if `git_install_from_source` is false (CentOS only). Any additional repositories you have installed that you would like to use for a newer/different Git version.
+
+    git_packages:
+      - git
+      - git-svn
+
+>>>>>>> 6f48135cc58c2635f30086c005bdb895fd16946a
 The specific Git packages that will be installed. By default, `git-svn` is included, but you can easily add this variable to your playbook's variables and remove `git-svn` if desired.
 
     git_install_from_source: false
@@ -45,6 +60,7 @@ If git is already installed at and older version, force a new source build. Only
 
 None.
 
+<<<<<<< HEAD
 ## Role playbook
 
 ### copy example
@@ -67,6 +83,13 @@ cp roles/geerlingguy.git/files/git.yml .
 ```shell
 ansible-playbook -i inventory/dev systems.yml --ask-become-pass --limit=workstation-001
 ```
+=======
+## Example Playbook
+
+    - hosts: servers
+      roles:
+        - { role: geerlingguy.git }
+>>>>>>> 6f48135cc58c2635f30086c005bdb895fd16946a
 
 ## License
 
@@ -74,4 +97,8 @@ MIT / BSD
 
 ## Author Information
 
+<<<<<<< HEAD
 This role was created in 2014 by [Jeff Geerling](http://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+=======
+This role was created in 2014 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+>>>>>>> 6f48135cc58c2635f30086c005bdb895fd16946a

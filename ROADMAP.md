@@ -34,6 +34,14 @@ cd ~/bin/git
 ```
 
 ```shell
+# get all subdirectory names and print them out
+cd ~/bin/git-2.9.2
+ls -d */ | awk '{print $NF}' | xargs -n1 sh -c 'echo "${0%?}"'
+```
+
+# desired output
+
+```shell
 #!/bin/bash
 #
 # file: activate-git-2.9.2.sh

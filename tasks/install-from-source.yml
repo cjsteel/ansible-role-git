@@ -30,7 +30,7 @@
     warn=no
   changed_when: false
   failed_when: false
-  always_run: yes
+#  check_mode: no
   register: git_installed_version
 
 - name: Force git install if the version numbers do not match
@@ -42,17 +42,30 @@
   get_url:
     url: "https://www.kernel.org/pub/software/scm/git/git-{{ git_version }}.tar.gz"
     dest: "{{ workspace }}/git-{{ git_version }}.tar.gz"
+    owner: '{{ git_remote_user }}'
+    group: '{{ git_remote_group }}'
   when:  git_installed_version|failed or git_reinstall_from_source
 
 - name: Expand git archive.
   unarchive:
     src: "{{ workspace }}/git-{{ git_version }}.tar.gz"
     dest: "{{ workspace }}"
+    owner: '{{ git_remote_user }}'
+    group: '{{ git_remote_group }}'
     creates: "{{ workspace }}/git-{{ git_version }}/README"
     copy: no
   when:  git_installed_version|failed or git_reinstall_from_source
 
+- name: configure git.
+  become: '{{ git_remote_user }}'
+  command: >
+    ./configure prefix={{ git_install_path }}
+    chdir={{ workspace }}/git-{{ git_version }}
+  when:  git_installed_version|failed or git_reinstall_from_source
+
+
 - name: Build git.
+  become: '{{ git_remote_user }}'
   command: >
     make prefix={{ git_install_path }} {{ item }}
     chdir={{ workspace }}/git-{{ git_version }}
@@ -60,4 +73,27 @@
     - all
     - install
   when:  git_installed_version|failed or git_reinstall_from_source
-  become: yes
+
+# Create symlink to last version of git installed
+# Should we add a force to link creation?
+
+- name: "Create symlink to version of git just installed if none exists"
+  become: True
+  command: ln -s {{ git_install_path }}/bin/git git
+  args:
+    chdir  : '{{ git_link_root }}'
+    creates: '{{ git_link_root }}/git'
+  when:  git_installed_version|failed or git_reinstall_from_source
+
+
+- name: "Force creation of symlink to version of git just installed"
+  become: True
+  command: ln -sf {{ git_install_path }}/bin/git git
+  args:
+    chdir  : '{{ git_link_root }}'
+  when:
+    - git_installed_version|failed or git_reinstall_from_source
+    - git_link_force == true
+
+
+

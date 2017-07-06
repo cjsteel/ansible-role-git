@@ -1,32 +1,34 @@
 ---
+git_controller_user: '{{ fact_controller_user }}'
 
-# ~/.gitconfig
+git_deployment_user: '{{ fact_controller_user }}'
 
-git_user_name     : 'Firstname Lastname'
-git_user_email    : 'first.last@gmail.com'
-git_core_editor   : 'gedit'
-git_push_default  : 'simple'
+git_remote_user: '{{ fact_controller_user }}'
+git_remote_group: '{{ fact_controller_user }}'
+git_remote_home: '{{ fact_controller_home }}'
 
-workspace: /root
+workspace: '{{ git_remote_home }}/src'
 
 # If git_install_from_source is set to false, these two variables define whether
 # to use an additional repo for the package installation, and which git packages
 # will be installed.
-
-git_enablerepo: "" # redhat
+git_enablerepo: ""
 git_packages:
   - git
-#  - git-svn
+  - git-svn
 
 # If set to TRUE, git will be installed from source, using the version set with
 # the 'git_version' variable instead of using a package.
-git_install_from_source: false
-git_install_path: "/usr"
+
+git_install_from_source: true
 git_version: "2.9.3"
+git_install_path: "{{ git_remote_home }}/bin/git-{{ git_version }}" # "/usr/{{ git_version }}"
+git_link_root: "{{ git_remote_home }}/bin"
+git_link_force: true # update link to version being installed.
 
 # If git is already installed at and older version, force a new source build.
 # Only applies if git_install_from_source is `true`.
-git_install_from_source_force_update: false
+git_install_from_source_force_update: true
 
 # Leave this at it's default.
 git_reinstall_from_source: false

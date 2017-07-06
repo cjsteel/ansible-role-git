@@ -22,7 +22,7 @@ Ensure for common root dir and move into it.
 
 Path to the directory you 
 
-#### Create symklinks
+#### Create symlinks
 
 Create base directory for the application and move into it.
 
@@ -45,6 +45,7 @@ our desired desired output is something like this:
 #
 # file: common_root_dir/git/activate-git-2.9.2.sh
 #
+cd ${HOME}/bin/git
 
 rm bin
 ln -s ../git-2.9.2/bin bin

@@ -24,22 +24,32 @@ Ensure for and move into common root
 
 Path to the directory you 
 
-Create base directory for symlink to the source directory
+## Create symklinks
+
+Create base directory for symlinks and move into it.
 
 ```shell
-mkdir ~/bin/git
+mkdir -p ~/bin/git
 cd ~/bin/git
 ```
 
-Create relative links to all subdirs
+```shell
+#!/bin/bash
+#
+# file: activate-git-2.9.2.sh
+#
 
-* iterate subdirs to list
-* create links
-
-```
+rm bin
 ln -s ../git-2.9.2/bin bin
-ln -s ../git-2.9.2/lib lib
-ln -s ../git-2.9.2/libexec libexec
-ln -s ../git-2.9.2/share share
+
+rm lib
+ln -sf ../git-2.9.2/lib lib
+
+rm libexec
+ln -sf ../git-2.9.2/libexec libexec
+
+
+rm share
+ln -sf ../git-2.9.2/share share
 ```
 

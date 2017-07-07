@@ -1,6 +1,10 @@
 - hosts: git
   become: true
   gather_facts: false
+
   roles:
-    - { role: geerlingguy.git }
+    - { role: git,
+        git_install_from_source: true,
+        git_install_from_os_package: true,
+      }
 

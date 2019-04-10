@@ -93,7 +93,5 @@
     chdir  : '{{ git_link_root }}'
   when:
     - git_installed_version|failed or git_reinstall_from_source
-    - git_link_force == true
-
-
+    - git_link_force
 
